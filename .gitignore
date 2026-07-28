@@ -1,0 +1,59 @@
+# ==========================================================
+#  Visual C++ / Visual Studio - generated files (never commit)
+# ==========================================================
+
+# Build output directories
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww]in32/
+[Bb]in/
+[Oo]bj/
+ipch/
+
+# Visual Studio workspace / cache
+.vs/
+*.suo
+*.user
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+*.ncb
+*.sbr
+*.pch
+*.aps
+
+# Compiler / linker intermediates
+*.obj
+*.o
+*.pdb
+*.ilk
+*.idb
+*.iobj
+*.ipdb
+*.tlog
+*.res
+*.exp
+*.lastbuildstate
+*.log
+
+# Build results (binaries)
+*.exe
+*.dll
+*.lib
+*.a
+*.so
+*.dylib
+
+# ==========================================================
+#  Editor / OS clutter
+# ==========================================================
+*.bak
+*~
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
