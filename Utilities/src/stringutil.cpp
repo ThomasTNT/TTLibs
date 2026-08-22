@@ -12,6 +12,7 @@
 #else
   #ifndef GPP_STL_OLD
   #include <sstream>
+  #include <iomanip>
   #else
   #include <stdio.h>
   #include <strstream>
@@ -453,8 +454,13 @@ std::string ttutil::StringUtil::long2charstring(unsigned long val){
   return result;
 }
 
-/// conversion from double to string, pos pos after point
-std::string ttutil::StringUtil::double2string(const double val, const unsigned int pos){
+/// conversion from double to string, pos decimal places; fixedPoint=true forces trailing zeros
+std::string ttutil::StringUtil::double2string(const double val, const unsigned int pos, const bool fixedPoint){
+  if (fixedPoint){
+    std::ostringstream os;
+    os << std::fixed << std::setprecision(static_cast<int>(pos)) << val;
+    return os.str();
+  }
   double positiveValue = val >= 0 ? val : -val;
   for (unsigned int i = 0; i < pos; i++) positiveValue = positiveValue * 10;
   positiveValue = static_cast<double>(static_cast<int>(positiveValue + 0.5));

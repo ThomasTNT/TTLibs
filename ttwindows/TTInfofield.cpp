@@ -55,6 +55,20 @@ void ttwin::TTInfofield::SetTextFontSize(const int size){
   TextFontSize = size;
 }
 
+//***********************
+// SetSubTextFontSize
+//***********************
+void ttwin::TTInfofield::SetSubTextFontSize(const int size){
+  SubTextFontSize = size;
+}
+
+//***********************
+// SetSubTextColor
+//***********************
+void ttwin::TTInfofield::SetSubTextColor(COLORREF color){
+  SubTextColor = color;
+}
+
 //**********************
 // SetMainTextColor
 //**********************
@@ -192,7 +206,7 @@ void ttwin::TTInfofield::PaintAll(){
 
     //---------- subtext (small, bottom) ----------
     if (!SubText.empty()){
-      HFONT subtextFont = ::CreateFont( 12,                        // height of font
+      HFONT subtextFont = ::CreateFont( SubTextFontSize,            // height of font
                                          0,                         // average character width
                                          0,                         // angle of escapement
                                          0,                         // base-line orientation angle
@@ -207,7 +221,7 @@ void ttwin::TTInfofield::PaintAll(){
                                          VARIABLE_PITCH | FF_SWISS, // pitch and family
                                          "MS Shell Dlg");           // typeface name
       OrgFont = ::SelectObject(hdc, subtextFont);
-      ::SetTextColor(hdc, RGB(200, 200, 200));
+      ::SetTextColor(hdc, SubTextColor);
       ::SetTextAlign(hdc, TA_LEFT | TA_BOTTOM);
       ::TextOut(hdc, inner.left + 6, inner.bottom - 3, SubText.c_str(), static_cast<int>(SubText.size()));
       ::SelectObject(hdc, OrgFont);

@@ -274,6 +274,12 @@ std::string ttutil::FileBrowser::addEnding(const std::string& filename,
   return filename + pureEnding;             
 }
 
+std::string ttutil::FileBrowser::removeEnding(const std::string& filename){
+  const size_t dotPos = filename.rfind('.');
+  if (dotPos == std::string::npos) return filename;
+  return filename.substr(0, dotPos);
+}
+
 bool ttutil::FileBrowser::renameFile(const std::string& src, const std::string& dst){
   return rename(src.c_str(), dst.c_str()) == 0;
 }
@@ -387,6 +393,38 @@ bool ttutil::FileBrowser::deleteDir(const std::string& src){
 bool ttutil::FileBrowser::deleteFile(const std::string& src){
   std::cout << "Delete File: " << src << std::endl;
   return remove(src.c_str()) == 0;
+}
+
+void ttutil::FileBrowser::BackupChain(const std::string& filename, const int maxBackups){
+  char drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT], path_buffer[_MAX_PATH];
+  _splitpath_s(filename.c_str(), drive, dir, fname, ext);
+  auto backupPath = [&](const int n) -> std::string {
+    _makepath_s(path_buffer, drive, dir, (std::string(fname) + "_backup_" + StringUtil::int2string(n)).c_str(), ext);
+    return std::string(path_buffer);
+  };
+  const std::string highest = backupPath(maxBackups);
+  if (exists(highest)) deleteFile(highest);
+  for (int n = maxBackups - 1; n >= 1; --n){
+    const std::string from = backupPath(n);
+    if (exists(from)) renameFile(from, backupPath(n + 1));
+  }
+  if (exists(filename)) renameFile(filename, backupPath(1));
+}
+
+bool ttutil::FileBrowser::IsBackupFilename(const std::string& filename, const int maxBackups, std::string& outOrgName){
+  char drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
+  _splitpath_s(filename.c_str(), drive, dir, fname, ext);
+  const std::string base(fname);
+  const std::string tag("_backup_");
+  const size_t tagPos = base.rfind(tag);
+  if (tagPos == std::string::npos) return false;
+  const std::string nStr = base.substr(tagPos + tag.size());
+  if (nStr.empty()) return false;
+  for (const char c : nStr){ if (c < '0' || c > '9') return false; }
+  const int n = std::stoi(nStr);
+  if (n < 1 || n > maxBackups) return false;
+  outOrgName = base.substr(0, tagPos) + "_" + nStr;
+  return true;
 }
 
 

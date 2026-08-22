@@ -76,9 +76,10 @@ class FileBrowser{
 
     static long long getSize(const std::string& filename);
 
-    static std::string addEnding(const std::string& filename, 
-                                 const std::string& ending, 
-                                 bool caseSensitiv = false); 
+    static std::string addEnding(const std::string& filename,
+                                 const std::string& ending,
+                                 bool caseSensitiv = false);
+    static std::string removeEnding(const std::string& filename);
 
     static bool renameFile(const std::string& src, const std::string& dst);
     static bool moveFile(const std::string& src, const std::string& dst, bool createDirs = true);
@@ -87,6 +88,8 @@ class FileBrowser{
     static bool copyDir(const std::string& src, const std::string& dst);
     static bool deleteFile(const std::string& src);
     static bool deleteDir(const std::string& src);
+    static void BackupChain(const std::string& filename, int maxBackups);
+    static bool IsBackupFilename(const std::string& filename, int maxBackups, std::string& outOrgName);
     
     std::vector<std::string> listFiles();
     std::vector<std::string> filterFiles(const std::string& mask);

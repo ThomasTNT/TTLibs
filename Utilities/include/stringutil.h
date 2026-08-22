@@ -142,8 +142,8 @@ static bool getKeyAndValue3(
     /// conversion from double to string
     static std::string double2string(double val);
 
-    /// conversion from double to string, pos pos after point
-    static std::string double2string(double val, unsigned int pos);
+    /// conversion from double to string, pos decimal places; fixedPoint=true forces trailing zeros (e.g. "0.0")
+    static std::string double2string(double val, unsigned int pos, bool fixedPoint = true);
 
     /// conversion from string to bool
     static bool string2bool(const std::string& val);

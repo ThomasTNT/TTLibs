@@ -93,8 +93,8 @@ bool ttwin::TTEdit::Create(HWND parent, HINSTANCE hinst, int id, const std::stri
  
   //convert coordinates into pixel
   if (unit == DIALOGUNIT) PixelsFromBaseUnits(x, y, width, height);
-  Hwnd = ::CreateWindowEx(WS_EX_STATICEDGE, "edit", label.c_str(), WS_CHILD | WS_VISIBLE,//| WS_CLIPCHILDREN, 
-                          x, y, width, height, parent, NULL, hinst, NULL);
+  Hwnd = ::CreateWindowEx(WS_EX_STATICEDGE, "edit", label.c_str(), WS_CHILD | WS_VISIBLE,//| WS_CLIPCHILDREN,
+                          x, y, width, height, parent, reinterpret_cast<HMENU>(static_cast<UINT_PTR>(id)), hinst, NULL);
   if (Hwnd == 0){
     return false;
   }

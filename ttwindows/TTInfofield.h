@@ -34,6 +34,12 @@ class TTInfofield : public TTWin {
     //sets the main text font size for the classic layout (default 29)
     void SetTextFontSize(const int size);
 
+    //sets the subtext font size for the classic layout (default 12)
+    void SetSubTextFontSize(const int size);
+
+    //sets the subtext color for the classic layout (default RGB(200,200,200))
+    void SetSubTextColor(COLORREF color);
+
     //sets the main text color; triggers repaint
     void SetMainTextColor(COLORREF color);
 
@@ -47,7 +53,9 @@ class TTInfofield : public TTWin {
     std::string SubText;
     bool        SideBySideLayout = false;
     int         TextFontSize     = 29;
+    int         SubTextFontSize  = 12;
     COLORREF    MainTextColor    = INFOFIELD_DEFAULT_TEXT_COLOR;
+    COLORREF    SubTextColor     = RGB(200, 200, 200);
 
 };
 
