@@ -193,6 +193,9 @@ static bool getKeyAndValue3(
   /// ret the upper case of string
   static std::string toupper(const std::string& src);
 
+  /// ret the lower case of string
+  static std::string tolower(const std::string& src);
+
   /**
    * ands a suffix to the name
    * filename.end -> filenamesuffix.end

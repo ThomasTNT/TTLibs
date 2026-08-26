@@ -80,6 +80,8 @@ class FileBrowser{
                                  const std::string& ending,
                                  bool caseSensitiv = false);
     static std::string removeEnding(const std::string& filename);
+    static std::string getEnding(const std::string& filename);
+    static bool hasEnding(const std::string& filename, const std::string& ending);
 
     static bool renameFile(const std::string& src, const std::string& dst);
     static bool moveFile(const std::string& src, const std::string& dst, bool createDirs = true);

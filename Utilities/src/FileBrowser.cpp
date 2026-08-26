@@ -258,8 +258,8 @@ std::vector<std::string> ttutil::FileBrowser::addFilterFiles(const std::string& 
 std::vector<std::string> ttutil::FileBrowser::fileList(){ return filelist; }
 
 std::string ttutil::FileBrowser::addEnding(const std::string& filename, 
-                                   const std::string& ending, 
-                                   bool caseSensitiv)
+                                           const std::string& ending, 
+                                           bool caseSensitiv)
 {
   std::string pureEnding = (( ending[0] == '.') ? ending : "." + ending );                   
   if (    filename.rfind(pureEnding) == std::string::npos 
@@ -278,6 +278,18 @@ std::string ttutil::FileBrowser::removeEnding(const std::string& filename){
   const size_t dotPos = filename.rfind('.');
   if (dotPos == std::string::npos) return filename;
   return filename.substr(0, dotPos);
+}
+
+std::string ttutil::FileBrowser::getEnding(const std::string& filename){
+  const size_t dotPos = filename.rfind('.');
+  if (dotPos == std::string::npos) return "";
+  return filename.substr(dotPos + 1);
+}
+
+bool ttutil::FileBrowser::hasEnding(const std::string& filename, const std::string& ending){
+  const std::string filenameLower = ttutil::StringUtil::tolower(filename);
+  return filenameLower.length() >= ending.length() &&
+         filenameLower.compare(filenameLower.length() - ending.length(), ending.length(), ending) == 0;
 }
 
 bool ttutil::FileBrowser::renameFile(const std::string& src, const std::string& dst){

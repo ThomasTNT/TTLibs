@@ -731,6 +731,18 @@ std::string ttutil::StringUtil::toupper(const std::string& src) {
   return std::string(tmp);
 }
 
+std::string ttutil::StringUtil::tolower(const std::string& src) {
+  std::string tmp;
+  for (unsigned int i=0; i < src.size(); i++) {
+#ifndef _WIN32
+  tmp += std::tolower( src[i]);
+#else
+  tmp += (src[i] >= 65 && src[i] <= 90) ? (src[i] + 32) : src[i];
+#endif
+  }
+  return std::string(tmp);
+}
+
 
 std::string ttutil::StringUtil::addSuffixAndKeepEnding(const std::string& src, const std::string& suffix) {
   const std::string::size_type pos = src.find_last_of('.');
